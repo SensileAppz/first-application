@@ -22,7 +22,7 @@ pipeline {
     stage('Build Image') {
       steps {
         script {
-          docker.build registry + ":$BUILD_NUMBER"
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
 
       }
@@ -33,7 +33,6 @@ pipeline {
           docker.withRegistry( '', registryCredential ) {
             dockerImage.push()
           }
-
         }
 
       }
@@ -42,5 +41,6 @@ pipeline {
   environment {
     registry = 'sensileappz/sample-microservices'
     registryCredential = 'dockerhub'
+    dockerImage = '\'\''
   }
 }
