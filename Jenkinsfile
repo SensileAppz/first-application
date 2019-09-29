@@ -1,10 +1,16 @@
 pipeline {
   agent any
   stages {
-    stage('Code Checkout') {
+    stage('Compile') {
       steps {
-        git(url: 'git@github.com:SensileAppz/first-application.git', branch: 'master', changelog: true, credentialsId: 'GIT')
+        sh '''withEnv(["MVN_HOME=$mvnHome"]) {
+         if (isUnix()) {
+            sh \'"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package\'
+         } else {
+            bat(/"%MVN_HOME%\\bin\\mvn" -Dmaven.test.failure.ignore clean package/)
+         }
+      }'''
+        }
       }
     }
   }
-}
