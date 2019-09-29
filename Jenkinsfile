@@ -8,7 +8,6 @@ pipeline {
                     // Get the Maven tool.
                     // ** NOTE: This 'M3' Maven tool must be configured
                     // **       in the global configuration.
-                    echo 'Pulling...' + env.BRANCH_NAME
                     def mvnHome = tool 'Maven 3.6.2'
                     if (isUnix()) {
                         sh "'${mvnHome}/bin/mvn' -Dintegration-tests.skip=true clean package"
