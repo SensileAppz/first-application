@@ -37,6 +37,14 @@ pipeline {
 
       }
     }
+    stage('Destroy') {
+      steps {
+        script {
+          sh "docker rmi $registry:$BUILD_NUMBER"
+        }
+
+      }
+    }
   }
   environment {
     registry = 'sensileappz/first-application'
