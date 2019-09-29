@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Build with unit testing') {
+    stage('Compile') {
       steps {
         script {
           def mvnHome = tool 'Maven 3.6.2'
@@ -15,6 +15,14 @@ pipeline {
             junit '**//*target/surefire-reports/TEST-*.xml'
             archive 'target*//*.jar'
           }
+        }
+
+      }
+    }
+    stage('Build Image') {
+      steps {
+        script {
+          docker.build("myorg/myapp")
         }
 
       }
