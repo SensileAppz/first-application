@@ -29,7 +29,7 @@ pipeline {
     }
   }
   environment {
-    registry = 'sensileappz / sample-microservices'
+    registry = 'sensileappz/sample-microservices'
     registryCredential = 'dockerhub'
   }
 }
