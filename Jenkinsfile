@@ -24,23 +24,21 @@ pipeline {
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
-
       }
     }
     stage('Push Image') {
       steps {
         script {
-          docker.withRegistry( '', registryCredential ) {
+          docker.withRegistry('', registryCredential) {
             dockerImage.push()
           }
         }
-
       }
     }
   }
   environment {
     registry = 'sensileappz/sample-microservices'
     registryCredential = 'dockerhub'
-    dockerImage = '\'\''
+    dockerImage = ''
   }
 }
