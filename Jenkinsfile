@@ -1,9 +1,9 @@
 pipeline {
   agent any
-  environment {
-    registry = "sensileappz/sample-microservices"
-    registryCredential = ‘dockerhub’
-  }
+  
+  def registry = "sensileappz/sample-microservices"
+  def registryCredential = ‘dockerhub’
+  
   stages {
     stage('Compile') {
       steps {
