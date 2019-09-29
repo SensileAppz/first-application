@@ -1,5 +1,9 @@
 pipeline {
   agent any
+  environment {
+    registry = "sensileappz/sample-microservices"
+    registryCredential = ‘dockerhub’
+  }
   stages {
     stage('Compile') {
       steps {
@@ -22,9 +26,8 @@ pipeline {
     stage('Build Image') {
       steps {
         script {
-          docker.build("myorg/myapp")
+          docker.build(registry + ":$BUILD_NUMBER")
         }
-
       }
     }
   }
