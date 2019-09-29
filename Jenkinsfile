@@ -1,12 +1,5 @@
 pipeline {
-  
-  environment {
-    registry = "docker_hub_account/repository_name"
-    registryCredential = 'dockerhub'
-  }
-  
   agent any
-  
   stages {
     stage('Compile') {
       steps {
@@ -31,7 +24,12 @@ pipeline {
         script {
           docker.build(registry + ":$BUILD_NUMBER")
         }
+
       }
     }
+  }
+  environment {
+    registry = 'sensileappz / sample-microservices'
+    registryCredential = 'dockerhub'
   }
 }
