@@ -50,7 +50,9 @@ pipeline {
         stage('Versioning') {
           steps {
             git(url: 'git@github.com:SensileAppz/jenkins.git', branch: 'master', credentialsId: 'GIT')
-            sh 'echo "$BUILD_NUMBER" > first-application-version'
+            sh '''echo "$BUILD_NUMBER" > first-application-version
+git commit \'Added New Version Number\'
+git push origin master'''
           }
         }
       }
