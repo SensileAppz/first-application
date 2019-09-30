@@ -50,13 +50,13 @@ pipeline {
         stage('Versioning') {
           steps {
             git(url: 'git@github.com:SensileAppz/jenkins.git', branch: 'master', credentialsId: 'GIT')
+            sh '''echo "$BUILD_NUMBER" > first-application-version
+            git config --global user.email "srikar2642@gmail.com"
+            git config --global user.name "Janardhan Korada"
+            git add first-application-version
+            git commit -m \'Added New Version Number\''''
             withCredentials([sshUserPrivateKey(credentialsId: 'GIT', keyFileVariable: 'SSH_KEY')]) {
-              sh '''echo "$BUILD_NUMBER" > first-application-version
-              git config --global user.email "srikar2642@gmail.com"
-              git config --global user.name "Janardhan Korada"
-              git add first-application-version
-              git commit -m \'Added New Version Number\'
-              git push origin master'''
+              sh("git push origin master:master")
             }
           }
         }
