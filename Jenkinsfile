@@ -51,7 +51,7 @@ pipeline {
           steps {
             git(url: 'git@github.com:SensileAppz/jenkins.git', branch: 'master', credentialsId: 'GIT')
             sh '''echo "$BUILD_NUMBER" > first-application-version
-git commit \'Added New Version Number\'
+git commit first-application-version \'Added New Version Number\'
 git push origin master'''
           }
         }
