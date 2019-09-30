@@ -38,11 +38,22 @@ pipeline {
       }
     }
     stage('Destroy') {
-      steps {
-        script {
-          sh "docker rmi $registry:$BUILD_NUMBER"
-        }
+      parallel {
+        stage('Destroy') {
+          steps {
+            script {
+              sh "docker rmi $registry:$BUILD_NUMBER"
+            }
 
+          }
+        }
+        stage('Versioning') {
+          steps {
+            git(url: 'git@github.com:SensileAppz/jenkins.git', branch: 'master', credentialsId: 'GIT')
+            sh '''cd jenkins
+echo "$BUILD_NUMBER" > first-application-version'''
+          }
+        }
       }
     }
   }
