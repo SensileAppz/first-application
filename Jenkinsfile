@@ -55,7 +55,7 @@ pipeline {
             git config --global user.name "Janardhan Korada"
             git add first-application-version
             git commit -m \'Added New Version Number\''''
-            withCredentials([sshUserPrivateKey(credentialsId: 'GIT', keyFileVariable: 'SSH_KEY')]) {
+            sshagent (credentials: ['GIT']) {
               sh("git push origin master:master")
             }
           }
